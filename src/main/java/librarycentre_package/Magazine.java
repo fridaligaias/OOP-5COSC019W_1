@@ -6,7 +6,7 @@ package librarycentre_package;
 
 /**
  *
- * @author fridaligaias
+ * @author fridaligaias - 18/11
  */
 public class Magazine extends Item {
     // variables
