@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Collections;
+import java.util.Collections; //TASK 03
 
 
 public class WestminsterLibraryManager implements LibraryManager {
@@ -155,9 +155,12 @@ public class WestminsterLibraryManager implements LibraryManager {
 
     @Override
     public void displayItems() {
+        //sorting , TASK 03
+        Collections.sort(itemList);
+        
         if (!itemList.isEmpty()){
-// collections.sortItemList
-// if else?
+
+        
             for(Item item : itemList) {
                 // print the type of item and the the description
                 if(item instanceof Book)
@@ -165,6 +168,8 @@ public class WestminsterLibraryManager implements LibraryManager {
                 else if (item instanceof DVD)
                     System.out.print("DVD - ");
                 //add here teh code if you added teh class Megazine
+                else if (item instanceof Magazine)
+                    System.out.print("Magazine - ");
                 
                 System.out.println(item.toString());
             }
@@ -184,39 +189,44 @@ public class WestminsterLibraryManager implements LibraryManager {
     @Override
     public void editTitleItem(){
         Scanner s = new Scanner (System.in);
+        //ask to instert the ISBN
         System.out.println("Enter the ISBN: ");
-        String ISBN = s.nextLine();
+        String isbn = s.nextLine(); // T02.03
         
-        // search for item using ISBN
-        Item foundItem = null;
-        for(Item ItemList: itemList){
-            if(ItemList.getISBN().equals(ISBN)){
-                foundItem = ItemList;
-                break;
+        boolean found = false;
+        
+        if(!itemList.isEmpty()){
+            for(int i =0; i < itemList.size(); i++){
+                if(isbn.equals(itemList.get(i).getISBN())){
+                    found = true;
+                    //item is found and info will be printed in the screen
+                    if(itemList.get(i) instanceof Book){
+                        System.out.println("Book - ");
+                    } else if (itemList.get(i) instanceof DVD){
+                        System.out.println("DVD - ");
+                    } else if (itemList.get(i) instanceof Magazine){
+                        System.out.println("Magazine - ");
+                    }
+                    
+                    System.out.println("Title: "+ itemList.get(i).getTitle()+ ", publication year: " + itemList.get(i).getPublicationYear());
+                    
+                    //asking the new title
+                    System.out.println("Please enter the new Title");
+                    String newTitle = s.nextLine();
+                    
+                    //set the new title
+                    itemList.get(i).setTitle(newTitle);
+                    System.out.println("The new title has been saved");
+                }
+            
             }
-        }
-        // if item is found, print out the title and pub year
-        if(foundItem != null){
-            System.out.println("Current title: " + foundItem.getTitle());
-            System.out.println("Publication Year: "+ foundItem.getPublicationYear());
-            
-            if(foundItem instanceof Book){
-                System.out.println("Type: Book ");
-            } else if (foundItem instanceof DVD){
-                System.out.println("Type: DVD");
+            if (!found){
+                System.out.println("No ISBN found!");
             }
-            
-            // ask user to insert new title
-            System.out.println("Enter the new Title: ");
-            String newTitle = s.nextLine();
-            
-            // Update the item's title using the setter method
-            foundItem.setTitle(newTitle);
-            System.out.println("Title updated successfully!");
+        } else {
+            System.out.println("There are no items in the system!");
         }
-        else{
-            System.out.println("Item not found with the given ISBN.");
-        }
+        
     }
     
 }

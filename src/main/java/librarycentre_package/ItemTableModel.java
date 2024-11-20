@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 public class ItemTableModel extends AbstractTableModel{
     
     
-    private String[] columnNames = {"Title", "ISBN", "Year"}; 
+    private String[] columnNames = {"Title", "ISBN", "Year", "Type"}; // TASK 04, add column
     private ArrayList<Item> itemList; 
     
     public ItemTableModel(ArrayList<Item> itemList){
@@ -31,6 +31,7 @@ public class ItemTableModel extends AbstractTableModel{
         return columnNames.length;
     }
 
+    // edit below for taks 04
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Object temp = null; 
@@ -43,6 +44,19 @@ public class ItemTableModel extends AbstractTableModel{
       else if (columnIndex == 2) { 
          temp = itemList.get(rowIndex).getPublicationYear(); 
       } 
+        
+        // adding fourth column, task 04
+        
+      else if (columnIndex == 3){
+          //checking the type and assign to the temp variable that will be shown on the table
+          if (itemList.get(rowIndex) instanceof Book)
+              temp="Book";
+          else if (itemList.get(rowIndex) instanceof DVD)
+              temp = "DVD";
+          else if (itemList.get(rowIndex) instanceof Magazine)
+              temp = "Magazine";
+      }
+        
       return temp; 
         
     }

@@ -47,6 +47,6 @@ public class Magazine extends Item {
     // toString
     @Override
     public String toString(){
-        return super.toString() + " Issue Number " + issue_num + "\n Publication Frequency " + pub_freq + "\n Editor " + editor;
+        return super.toString() + " Issue Number: " + issue_num + "\n Publication Frequency: " + pub_freq + "\n Editor: " + editor;
     }
 }

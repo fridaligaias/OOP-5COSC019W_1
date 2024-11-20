@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -50,6 +51,31 @@ public class ItemTableGUI extends JFrame {
         // add the panel to the frame
         add(scrollPane,BorderLayout.CENTER); 
         add(button, BorderLayout.SOUTH);
+        
+        // add a listener - task 05
+        GUIListener handler = new GUIListener();
+        button.addActionListener(handler);
+    }
+    
+    // TASK 05
+    private class GUIListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent evt){
+            //get the numbers for each item group
+            int totBook = 0;
+            int totDVD = 0;
+            int totMagazine = 0;
+            
+            for (int=0; i < itemList.size(); i++){
+                if (itemList.get(i) instanceof Book)
+                    totBook++;
+                else if (itemList.get(i) instanceof DVD)
+                    totDVD++;
+                else if (itemList.get(i) instanceof Magazine)
+                    totMagazine++;
+            }
+            JOptionPane.showMessageDialog(null, "Books "+ totBook + ", DVD " + totDVD + ", Magazine " + totMagazine);
+        }
     }
   
         
