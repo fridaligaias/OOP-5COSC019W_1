@@ -4,7 +4,7 @@
  */
 package librarycentre_package;
 
-public abstract class Item {
+public abstract class Item implements Comparable<Item>{ // comparable, TASK 03
     
     // implements comparable <item>
     
@@ -48,6 +48,14 @@ public abstract class Item {
     @Override
     public String toString(){
         return "Title: " + title + ", ISBN = " + ISBN + ", publication year: " + publicationYear; 
+    }
+    
+    // task 03
+    @Override
+    public int compareTo(Item obj){
+        return this.publicationYear - obj.publicationYear;
+        // comparison between strings
+        //return this.title.compareTo(obj.title);
     }
     
 }
